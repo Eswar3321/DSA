@@ -97,19 +97,20 @@ function bestTimetoBuySell(prices) {
 console.log(bestTimetoBuySell([7,1,5,3,6,4]));
 
 // merge sorted array #88
- var maxProfit = function(prices) {
-      let min = prices[0];
-      let maxProfit = 0;
-      for (let i = 1; i < prices.length; i++) {
-          if (prices[i] - min > maxProfit) {
-              maxProfit = prices[i] - min;
-          }
-          if (prices[i] < min) {
-              min = prices[i];
-          }
-      }
-      return maxProfit;
-  };
+function merge(num1, m, num2, n) {
+  let p1 = m-1;
+  let p2 = n-1;
+  for(let i = m+n-1; i>=0; i++) {
+    if(p2 < 0) break;
+    if(p1 > 0 && nums1[p1] > nums2[p2]) {
+      nums[i] = nums[p1];
+      p1--;
+    } else {
+      nums[i] = nums[p2];
+      p2--;
+    }
+  }
+};
 
 // Move zeroes #283
 var moveZeroes = function(nums) {
@@ -153,13 +154,11 @@ var moveZeroes = function(nums) {
   };
 
   // return single number
-   var missingNumber = function(nums) {
-      let n = nums.length;
-      let total_sum = (n * (n + 1)) / 2;
-      let sum_of_array = 0;
-      for (let num of nums) {
-          sum_of_array += num;
-      }
-      return total_sum - sum_of_array;
+   var singleNumber = function(nums) {
+      let xor = 0;
+    for(let i=0; i<nums.length; i++) {
+      xor = xor ^ nums[i];
+    }
+    return xor;
   };
   
