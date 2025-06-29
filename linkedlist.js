@@ -70,7 +70,7 @@ function MiddleNode(head) {
     }
     return slow;
 }
-
+// reverseList
 var reverseList = function(head) {
     let prev = null;
     let curr = head;
@@ -81,4 +81,57 @@ var reverseList = function(head) {
         curr = temp;
     }
     return prev;
+};
+
+// is Linked list -hash Table time&space O(n)
+var hasCycle = function(head) {
+    let seenNodes = new Set();
+    let curr = head;
+    while (curr !== null) {
+        if (seenNodes.has(curr)) {
+            return true;
+        }
+        seenNodes.add(curr);
+        curr = curr.next;
+    }
+    return false;
+};
+// is Linked list time O(n) and space O(1)
+var hasCycle = function(head) {
+    let slow = head;
+    let fast = head;
+    while(fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next;
+        if(slow == fast) return true;
+    }
+    return fasle;
+}
+
+// is Palindrome List
+var isPalindrome = function(head) {
+    // find the middle
+    let slow = fast = head;
+    while(fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next
+    }
+    // reverse second half
+    let prev = null;
+    let curr = slow;
+    while(curr) {
+        let temp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = temp;
+    }
+    // compare both lists
+    let firstList = head;
+    let secondList = prev;
+    while(secondList) {
+        if(firstList.val != secondList.val) return false;
+        firstList = firstList.next;
+        secondList = secondList.next;
+    }
+    return true;
 };
