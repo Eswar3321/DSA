@@ -135,3 +135,72 @@ var isPalindrome = function(head) {
     }
     return true;
 };
+
+// Intersection of two linked list
+var interSection = function(headA, headB) {
+    // pull all nodes of headA
+    let store = new Set();
+    while(headA) {
+        store.add(headA);
+        headA = headA.next;
+    }
+    // compare any of headB element is exist in headA
+    while(headB) {
+        if(store.has(headB)) return true;
+        headB = headB.next;
+    }
+    return false;
+}
+
+// Remove elements from linked list
+// fn to create empty node(sentinel)
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val);
+    this.next = (next===undefined ? null : val);
+}
+var removeElements = function(head, val) {
+    // sentinel is empty node to keep watch next one
+    let sentinel = new ListNode();
+    sentinel.next = head;
+    let prev = sentinel;
+    while(prev && prev.next) {
+        if(prev.next.val === val) prev.next = prev.next.next; // skipping 
+        else {prev = prev.next};
+    }
+    return sentinel.next;
+}
+
+// remove Nth node from end of list // two-pass O(n) & O(n)
+var removeNthFromEnd = function(head, n) {
+    let sentinel = new ListNode();
+    sentinel.next = head;
+    let length = 0;
+    while(head) { //O(n)
+        head = head.next;
+        length++;
+    }
+    let prevPos = length-n;
+    let prev = sentinel;
+    for(let i = 0; i < prevPos; i++) { //O(n)
+        prev = prev.next;
+    }
+    prev.next = prev.next.next;
+    return sentinel.next;
+};
+
+// remove Nth node from end of list // one-pass O(n) & two pointer
+var removeNthFromEnd = function(head, n) {
+    let sentinel = new ListNode(0, head);
+    let first = sentinel;
+    for (let i = 0; i < n; i++) {
+        first = first.next;
+    }
+    let second = sentinel;
+    while (first.next) {
+        first = first.next;
+        second = second.next;
+    }
+    second.next = second.next.next;
+    return sentinel.next;
+};
+
