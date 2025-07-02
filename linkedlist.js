@@ -204,3 +204,32 @@ var removeNthFromEnd = function(head, n) {
     return sentinel.next;
 };
 
+// Remove duplicates from sorted list
+var deleteDuplicates = function(head) {
+    let curr = head;
+    while(curr && curr.next) {
+        if(curr.val == curr.next.val) {
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next
+        }
+    }
+    return head;
+};
+
+// Odd even linked list
+var oddEvenList = function(head) {
+    if (!head || !head.next) return head;
+    let odd = head;
+    let even = head.next;
+    let evenHead = even;
+
+    while (even && even.next) {
+        odd.next = odd.next.next;
+        even.next = even.next.next;
+        odd = odd.next;
+        even = even.next;
+    }
+    odd.next = evenHead;
+    return head;
+};
