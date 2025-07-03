@@ -233,3 +233,46 @@ var oddEvenList = function(head) {
     odd.next = evenHead;
     return head;
 };
+
+var addTwoNumbers = function(l1, l2) {
+    let res = new ListNode();
+    let resHead = res;
+    let carry = 0
+    while(l1 || l2 || carry) {
+        let sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry;
+        
+        let digit = sum%10;
+        carry = Math.floor(sum/10);
+        let newNode = new ListNode(digit);
+        res.next = newNode;
+        res = res.next;
+        l1 = l1 && l1.next;
+        l2 = l2 && l2.next;
+    }
+    return resHead.next;
+};
+
+var mergeTwoLists = function(list1, list2) {
+    let res = new ListNode();
+    let resHead = res;
+    if(!list1) return list2;
+    if(!list2) return list1;
+
+    while(list1 && list2) {
+        if(list1.val <= list2.val) {
+            res.next = list1;
+            list1 = list1.next;
+        } else {
+            res.next = list2;
+            list2 = list2.next;
+        }
+        res = res.next;
+    }
+    if(!list1) {
+        res.next = list2;
+    } 
+    if(!list2) {
+        res.next = list1;
+    }
+    return resHead.next;
+};
