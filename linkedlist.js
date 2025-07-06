@@ -300,3 +300,29 @@ var rotateRight = function(head, k) {
     tail.next = head;
     return curr;
 };
+
+// swap nodes iterative approach
+var swapPairs = function(head) {
+    if(!head || !head.next) return head;
+    let prev  = new ListNode();
+    let newHead = prev;
+    let curr = head;
+    let n = curr.next;
+    while(curr && curr.next) {
+        prev.next = n;
+        curr.next = curr.next.next;
+        n.next = curr;
+        prev = curr;
+        curr = curr.next;
+        n = curr && curr.next;
+    }
+    return newHead.next;
+};
+
+// swap nodes recursive approach
+var swapPairs = function(head) {
+   if(!head || !head.next) return head;
+   head.next = swapList(head.next.next);
+   head.next.next = head;
+   return head.next;
+};
