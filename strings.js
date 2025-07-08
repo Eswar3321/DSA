@@ -59,3 +59,37 @@ var numJewelsInStones = function(jewels, stones) {
     }
     return count;
 };
+
+var maxFreqSum = function(s) {
+    const freq = {};
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    for(let i=0; i<s.length; i++) {
+        freq[s[i]] ? freq[s[i]]++ :  freq[s[i]] = 1;
+    }
+    let maxVowels = 0;
+    let maxConsonant = 0;
+    for(let key in freq) {
+      if(vowels.includes(key)) {
+        if(freq[key] > maxVowels) maxVowels = freq[key];
+      } else if(freq[key] > maxConsonant){
+        maxConsonant = freq[key];
+      }
+    }
+    return maxVowels + maxConsonant;
+};
+console.log(maxFreqSum('successes'));
+
+// Input: s = "RLRRLLRLRL"
+// Output: 4
+// Explanation: s can be split into "RL", "RRLL", "RL", "RL";
+var balancedStringSplit = function(s) {
+    let count = 0;
+    let subStr = 0;
+  for(let i=0; i<s.length; i++) {
+    if(s[i] == 'R') count++;
+    if(s[i] == 'L') count--;
+    if(count === 0) subStr++;
+  }  
+  return subStr;
+};
+
