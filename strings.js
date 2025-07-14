@@ -173,22 +173,37 @@ var longestCommonPrefix = function(strs) {
       return strs[0];
   };
 
-  // Valid Anagram #242
-   var isAnagram = function(s, t) {
-      if (s.length !== t.length) return false;
-      let map = {};
+// Valid Anagram #242
+  var isAnagram = function(s, t) {
+    if (s.length !== t.length) return false;
+    let map = {};
+    for (let i = 0; i < s.length; i++) {
+        if (!map[s[i]]) {
+            map[s[i]] = 1;
+        } else {
+            ++map[s[i]];
+        }
+    }
+    for (let i = 0; i < t.length; i++) {
+        if (!map[t[i]] || map[t[i]] === 0) {
+            return false;
+        } else {
+            --map[t[i]];
+        }
+    }
+    return true;
+};
+
+ var isIsomorphic = function(s, t) {
+      let mapSToT = {};
+      let mapTToS = {};
+  
       for (let i = 0; i < s.length; i++) {
-          if (!map[s[i]]) {
-              map[s[i]] = 1;
-          } else {
-              ++map[s[i]];
-          }
-      }
-      for (let i = 0; i < t.length; i++) {
-          if (!map[t[i]] || map[t[i]] === 0) {
+          if (!mapSToT[s[i]] && !mapTToS[t[i]]) {
+              mapSToT[s[i]] = t[i];
+              mapTToS[t[i]] = s[i];
+          } else if (mapTToS[t[i]] !== s[i] || mapSToT[s[i]] !== t[i]) {
               return false;
-          } else {
-              --map[t[i]];
           }
       }
       return true;
