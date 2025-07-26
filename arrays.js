@@ -102,7 +102,7 @@ function merge(num1, m, num2, n) {
   let p2 = n-1;
   for(let i = m+n-1; i>=0; i++) {
     if(p2 < 0) break;
-    if(p1 > 0 && nums1[p1] > nums2[p2]) {
+    if(p1 > 0 && num1[p1] > num2[p2]) {
       nums[i] = nums[p1];
       p1--;
     } else {
