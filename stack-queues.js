@@ -158,3 +158,62 @@ var removeOuterParentheses = function(s) {
     }
     return ans;
 };
+
+// Remove Outermost Parentheses without Stack
+var removeOuterParentheses = function(s) {
+    let level = -1;
+    let ans = "";
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === "(") {
+            ++level;
+            ans += (level ? s[i] : "");
+        } else {
+            ans += (level ? s[i] : "");
+            --level;
+        }
+    }
+    return ans;
+};
+
+var evalRPN = function(arr) {
+    let stack = [];
+    const map = {
+        "+": (a,b) => (b+a),
+        "*": (a,b) => (b*a),
+        "-": (a,b) => (b-a),
+        "/": (a,b) => Math.trunc(b/a),
+    };
+        for(let i=0; i < arr.length; i++){
+            if(map[arr[i]]) {
+                let a = stack.pop();
+                let b = stack.pop();
+                let ans = map[arr[i]](+a,+b);
+                stack.push(ans);
+            } else {
+                stack.push(arr[i]) 
+            }
+        }
+    return Number(stack.pop());
+};
+
+// #150 Evaluate Reverse Polish Notation
+var evalRPN = function(arr) {
+    let stack = [];
+    const map = {
+        "+": (a,b) => (b+a),
+        "*": (a,b) => (b*a),
+        "-": (a,b) => (b-a),
+        "/": (a,b) => Math.trunc(b/a),
+    };
+        for(let i=0; i < arr.length; i++){
+            if(map[arr[i]]) {
+                let a = stack.pop();
+                let b = stack.pop();
+                let ans = map[arr[i]](+a,+b);
+                stack.push(ans);
+            } else {
+                stack.push(arr[i]) 
+            }
+        }
+    return Number(stack.pop());
+};
