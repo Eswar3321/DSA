@@ -97,7 +97,7 @@ var balancedStringSplit = function(s) {
 var reverseStr = function (s, k) {
       s = s.split("")
       for (let x = 0; x < s.length; x = x + (2 * k)) {
-          let n = k;
+          let n = Math.min(k, s.length-1);
           let mid = Math.floor(n / 2)
           for (let i = 0; i < mid; i++) {
               let temp = s[x + i]
@@ -106,8 +106,26 @@ var reverseStr = function (s, k) {
           }
       }
       return s.join("")
-  };  
-
+};
+// without split() and join()
+var reverseStr = function(s, k) {
+    let result = '';
+    for (let i = 0; i < s.length; i += 2 * k) {
+        // Get the first k characters
+        let part1 = '';
+        for (let j = 0; j < k && (i + j) < s.length; j++) {
+            part1 = s[i + j] + part1;  // Reverse manually
+        }
+        // Get the next k characters (unchanged)
+        let part2 = '';
+        for (let j = k; j < 2 * k && (i + j) < s.length; j++) {
+            part2 += s[i + j];
+        }
+        result += part1 + part2;
+    }
+    return result;
+};
+console.log(reverseStr("abcdefg", 2));  // Output: "bacdfeg"
 
 // isPalindrome approach-1
 var isPalindrome = function(s) {
@@ -245,3 +263,35 @@ var groupAnagrams = function(strs) {
       }
       return Object.values(map);
   };
+
+var maxFreqSum = function(s) {
+    let maxVowel = 0, maxConso = 0;
+    const map = {};
+    for(let i=0; i<s.length; i++) {
+        map[s[i]] =  !map[s[i]] ? 1 : ++map[s[i]];
+    }
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    const mapKeys = Object.keys(map);
+    for(let i=0; i<mapKeys.length; i++) {
+        if(vowels.includes(mapKeys[i])) {
+            maxVowel = Math.max(maxVowel, map[mapKeys[i]]);
+        } else {
+            maxConso = Math.max(maxConso, map[mapKeys[i]]);
+        }
+    }
+    return maxVowel + maxConso;
+};
+console.log(maxFreqSum('successes'));
+
+var balancedStringSplit = function(s) {
+    let bal = 0;
+    let subStrCount = 0
+    for(let i=0; i<s.length; i++) {
+        s[i] === 'R' ? bal++ : bal--;
+        if(bal === 0) subStrCount++;
+    }
+    return subStrCount;
+};
+console.log(balancedStringSplit("RLRRLLRLRL"));
+
+
