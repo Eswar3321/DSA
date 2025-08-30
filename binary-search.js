@@ -115,3 +115,40 @@ var findMin = function(a) {
         }
     }
 };
+
+// #34 Find last and first position of a element in sorted array
+var searchRange = function(nums, target) {
+    let l = 0;
+    let r = nums.length-1;
+    let ans = [-1, -1];
+    while(l < r) {
+        let m = l + Math.floor((r - l)/2);
+        if(nums[m] < target) l = m + 1;
+        else r = m;
+    }
+    if(nums[l] === target) ans[0] = l;
+    l = 0;
+    r = nums.length-1;
+    while(l < r) {
+        let m = l + Math.ceil((r-l)/2);
+        if(nums[m] > target) r = m - 1;
+        else l = m;
+    }
+    if(nums[l] === target) ans[1] = l;
+    return ans;
+};
+
+// #852 peak index in a mountain array
+var peakIndexInMountainArray = function(arr) {
+    let l = 0;
+    let r = arr.length-1;
+    while(l < r) {
+        let m = l + Math.floor((r-l)/2);
+        if(arr[m+1] > arr[m]) {
+            l = m + 1;
+        } else {
+            r = m;
+        }
+    }
+    return l;
+};
