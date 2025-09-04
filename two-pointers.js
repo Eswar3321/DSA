@@ -92,4 +92,42 @@ var strStr = function(haystack, needle) {
     }
     return -1;
 };
-     
+
+// intersection of two linked list
+// Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
+// Output: No intersection
+// Explanation: From the head of A, it reads as [2,6,4]. From the head of B, it reads as [1,5]. 
+// Since the two lists do not intersect, intersectVal must be 0, 
+// while skipA and skipB can be arbitrary values.
+// Explanation: The two lists do not intersect, so return null.
+var getIntersectionNode = function(headA, headB) {
+    let pA = headA;
+    let pB = headB;
+
+    while(pA != pB) {
+        pA = pA == null ? headB : pA.next;
+        pB = pB == null ? headA : pB.next;
+    }
+    return pA;
+};
+
+// Input: height = [1,8,6,2,5,4,8,3,7]
+// Output: 49
+// Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. 
+// In this case, the max area of water (blue section) the container can contain is 49.
+// container woth most water
+var maxArea = function(arr) {
+    let i = 0;
+    let j = arr.length - 1;
+    let maxWater = 0;
+    while(i < j){
+        let area = Math.min(arr[i], arr[j]) * (j-i);
+        maxWater = Math.max(maxWater, area);
+        if(arr[i] > arr[j]) {
+            --j;
+        } else {
+            ++i;
+        }
+    }
+    return maxWater;
+};
