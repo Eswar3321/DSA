@@ -225,3 +225,63 @@ var isSymmetric = function(root) {
     }
     return true;
 };
+
+// 226. Invert Binary Tree
+// Input: root = [4,2,7,1,3,6,9]
+// Output: [4,7,2,9,6,3,1]
+var invertTree = function(root) {
+   if(!root) return root;
+   let temp = root.left;
+   root.left = root.right;
+   root.right = temp;
+   invertTree(root.left);
+   invertTree(root.right);
+   return root;
+};
+
+// 100. Same Tree
+// Input: p = [1,2,3], q = [1,2,3]
+// Output: true
+var isSameTree = function(p, q) {
+    if(!p && !q) return true;
+    if(!p || !q) return false;
+    return p.val === q.val && 
+    isSameTree(p.left, q.left) && 
+    isSameTree(p.right, q.right);
+};
+
+// 110. Balanced Binary Tree
+// Input: root = [3,9,20,null,null,15,7]
+// Output: true
+var isBalanced = function(root) {
+    let ans = true;
+    let calculateHeight = (curr) => {
+        if(!curr) return 0;
+        let leftHeight = calculateHeight(curr.left);
+        let rightHeight = calculateHeight(curr.right);
+        if(Math.abs(leftHeight - rightHeight) > 1) {
+            ans = false;
+        }
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+    calculateHeight(root);
+    return ans;
+};
+
+// 543. Diameter of Binary Tree
+// Input: root = [1,2,3,4,5]
+// Output: 3
+// Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3]
+var diameterOfBinaryTree = function(root) {
+    let maxDiameter = 0;
+    let findDepth = (curr) => {
+        if(!curr) return 0;
+        let leftDepth = findDepth(curr.left);
+        let rightDepth = findDepth(curr.right);
+        let currDepth = leftDepth + rightDepth;
+        maxDiameter = Math.max(currDepth, maxDiameter);
+        return 1 + Math.max(leftDepth, rightDepth);
+    }
+    findDepth(root);
+    return maxDiameter;
+};
